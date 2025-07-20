@@ -2,6 +2,7 @@
     import { getContext } from "svelte";
     const scrollama = getContext("scrollama");
     const d3 = getContext("d3");
+    import Card from "./Card.svelte";
 
     import { onMount, onDestroy } from "svelte";
 
@@ -34,7 +35,6 @@
 
         // scrollama event handlers
         function handleStepEnter(response) {
-            console.log(response);
             // response = { element, direction, index }
 
             // add color to current step only
@@ -72,36 +72,33 @@
     });
 </script>
 
-<p>Growing up in the San Francisco Bay Area, I learned a lot about racial inequity at school, especially in history class. But the history we learned felt distant, in terms of both time and space.</p>
+<Card text="Growing up in the San Francisco Bay Area, I learned a lot about racial inequity at school, especially in history class. But the history we learned felt distant, in terms of both time and space." span="" suffix="" />
 
-<section id="scrolly">
-    <article>
-        <div class="step" data-step="1">
+<section id="scrolly" class="my-8">
+    <article class="w-full">
+        <div class="step relative z-1 w-xs left-[35vw]" data-step="1">
             <p>STEP 1</p>
         </div>
-        <div class="step" data-step="2">
+        <div class="step relative z-1 w-xs right-[35vw]" data-step="2">
             <p>STEP 2</p>
         </div>
-        <div class="step" data-step="3">
+        <div class="step relative z-1 w-xs left-[35vw]" data-step="3">
             <p>STEP 3</p>
         </div>
-        <div class="step" data-step="4">
+        <div class="step relative z-1 w-xs right-[35vw]" data-step="4">
             <p>STEP 4</p>
         </div>
     </article>
 
-    <figure>
-        <img src="https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630" alt="textbook page" />
+    <figure class="flex items-center justify-center">
+        <img src="https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630" alt="textbook page" class="h-full" />
     </figure>
 </section>
 
 <style>
     #scrolly {
         position: relative;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        background-color: #f3f3f3;
+        display: grid;
         padding: 1rem;
     }
 
@@ -109,12 +106,13 @@
         -webkit-box-flex: 1;
         -ms-flex: 1;
         flex: 1;
+        grid-column: 1;
+        grid-row: 1;
     }
 
     article {
         position: relative;
         padding: 0 1rem;
-        max-width: 20rem;
     }
 
     figure {
@@ -126,10 +124,6 @@
         -moz-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
         z-index: 0;
-    }
-
-    img {
-        height: 500px;
     }
 
     .step {
