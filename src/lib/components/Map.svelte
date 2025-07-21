@@ -102,6 +102,8 @@
         });
         const path = d3.geoPath().projection(transform);
 
+        const tooltip = d3.select("#tooltip");
+
         // draw overlay areas
         g.selectAll("path")
             .data(data.features)
@@ -110,9 +112,21 @@
             .attr("class", "area")
             .attr("d", path)
             .attr("stroke", "#000")
-            .attr("fill", (d) => d.properties.fill)
+            .attr("fill", (d) => d.properties.fill || "red")
             .attr("fill-opacity", 0.5)
-            .style("pointer-events", "all");
+            .style("pointer-events", "all")
+            .style("cursor", "pointer")
+            .on("mouseover", function (event, d) {
+                tooltip.style("display", "block").text(`Census Tract: #${d.properties.GEOID.slice(-6)}`);
+                d3.select(this).attr("fill-opacity", 0.8);
+            })
+            .on("mousemove", function (event) {
+                tooltip.style("left", event.pageX + 10 + "px").style("top", event.pageY - 28 + "px");
+            })
+            .on("mouseout", function () {
+                tooltip.style("display", "none");
+                d3.select(this).attr("fill-opacity", 0.5);
+            });
     }
 </script>
 
@@ -138,6 +152,8 @@
         </div>
     </figure>
 </section>
+
+<div id="tooltip" class="absolute bg-white text-black p-1 text-sm hidden"></div>
 
 <style>
     #scrolly-two > * {
