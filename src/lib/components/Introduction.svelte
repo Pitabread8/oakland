@@ -10,7 +10,7 @@
 
     onMount(() => {
         const main = d3.select("main");
-        const scrolly = main.select("#scrolly");
+        const scrolly = main.select("#scrolly-one");
         const figure = scrolly.select("figure");
         const article = scrolly.select("article");
         const step = article.selectAll(".step");
@@ -56,7 +56,7 @@
             // 3. bind scrollama event handlers (this can be chained like below)
             scroller
                 .setup({
-                    step: "#scrolly article .step",
+                    step: "#scrolly-one article .step",
                     offset: 0.33,
                     debug: false,
                 })
@@ -74,7 +74,7 @@
 
 <Card text="Growing up in the San Francisco Bay Area, I learned a lot about racial inequity at school, especially in history class. But the history we learned felt distant, in terms of both time and space." span="" suffix="" />
 
-<section id="scrolly" class="my-8">
+<section id="scrolly-one" class="my-8 relative grid">
     <article class="w-full">
         <div class="step relative z-1 w-xs left-[35vw]" data-step="1">
             <p>STEP 1</p>
@@ -98,13 +98,7 @@
 </section>
 
 <style>
-    #scrolly {
-        position: relative;
-        display: grid;
-        padding: 1rem;
-    }
-
-    #scrolly > * {
+    #scrolly-one > * {
         -webkit-box-flex: 1;
         -ms-flex: 1;
         flex: 1;
