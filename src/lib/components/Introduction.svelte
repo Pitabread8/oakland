@@ -5,7 +5,6 @@
     const d3 = getContext("d3");
     import Card from "./Card.svelte";
 
-
     const pages = ["https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630", "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D", "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630", "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"];
     let pageIndex = 0;
 
@@ -93,7 +92,7 @@
 
     <figure class="flex items-center justify-center">
         {#key pageIndex}
-            <img src={pages[pageIndex]} alt="textbook page" transition:fade={{ duration: 1000 }} class="absolute max-w-full max-h-full object-contain" />
+            <img src={pages[pageIndex] || "/vite.svg"} alt="textbook page" transition:fade={{ duration: 1000 }} class="absolute max-w-full max-h-full object-contain" />
         {/key}
     </figure>
 </section>
