@@ -37,11 +37,6 @@
         function handleStepEnter(response) {
             // response = { element, direction, index }
 
-            // add color to current step only
-            step.classed("is-active", function (d, i) {
-                return i === response.index;
-            });
-
             // update graphic based on step
             // figure.select("p").text(response.index + 1);
             pageIndex = response.index;
@@ -130,11 +125,6 @@
 
     .step:last-child {
         margin-bottom: 0;
-    }
-
-    .step.is-active {
-        background-color: goldenrod;
-        color: #3b3b3b;
     }
 
     .step p {

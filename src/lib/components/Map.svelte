@@ -47,11 +47,6 @@
         function handleStepEnter(response) {
             // response = { element, direction, index }
 
-            // add color to current step only
-            step.classed("is-active", function (d, i) {
-                return i === response.index;
-            });
-
             const svg = d3.select("#overlay");
 
             // update graphic based on step
@@ -235,6 +230,7 @@
             <p>Look more closely at West Oakland. That's where the Industrial and Commercial areas were, as marked on the HOLC map. And because industrial activities release a lot of pollutants, the air quality tends to be poor.</p>
             <p>Notice how all the areas around the Industrial and Commercial areas are marked as yellow (C) and red (D)? Banks would refuse or be reluctant to give out loans to these areas' residents, making it harder for them to move out and into cleaner areas.</p>
         </div>
+        <div class="relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw] h-screen" data-step="8"></div>
     </article>
 
     <figure class="sticky top-0 h-screen w-full overflow-hidden z-0 m-0">
@@ -257,16 +253,11 @@
 
     .step {
         margin: 0 auto 2rem auto;
-        background-color: #3b3b3b;
+        background-color: #444;
         color: #fff;
     }
 
     .step:last-child {
         margin-bottom: 0;
-    }
-
-    .step.is-active {
-        background-color: goldenrod;
-        color: #3b3b3b;
     }
 </style>
