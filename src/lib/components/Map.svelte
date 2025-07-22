@@ -21,18 +21,10 @@
         // fetch geojson data
         const base = import.meta.env.BASE_URL || "/";
         const res = await fetch(`${base}data/2020-tract-crosswalk.geojson`);
-        // const res = await fetch(`${base}data/alameda-census-tracts.geojson`);
-        // const res = await fetch(`${base}data/holc-map.json`);
         data = await res.json();
 
         drawOverlay();
         map.on("moveend", drawOverlay);
-
-        const main = d3.select("main");
-        const scrolly = main.select("#scrolly-two");
-        const figure = scrolly.select("figure");
-        const article = scrolly.select("article");
-        const step = article.selectAll(".step");
 
         // initialize the scrollama
         const scroller = scrollama();
@@ -191,12 +183,12 @@
             </div>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="3">
-            <p>The 1937 map is overlaid over a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find the 2020 census tract it falls into now.</p>
+            <p>The 1937 map is overlaid on a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find the 2020 census tract it falls into now.</p>
             <p>Below is a map of Oakland showing Black homeownership rates. Specifically: &quot;Percent of households living in owner-occupied housing. A housing unit is owner occupied if the owner or co-owner lives in the unit, even if it is mortgaged or not fully paid for.&quot;</p>
             <img src="images/homeownership-map.png" alt="homeownership map" />
             <img src="images/homeownership-scale.png" alt="homeownership scale" />
             <p class="text-xs">Screenshots sourced from: Black Wealth Data Center. Data sourced from: American Community Survey (2023).</p>
-            <p>Notice how the darker areas of the map above tend to overlap with the green (A) and blue (B) parts of the HOLC map? It's not an exact match, because there are plenty of other factors that impact homownership. There's still significant correlation, though.</p>
+            <p>Notice how the darker areas of the map above tend to overlap with the green (A) and blue (B) parts of the HOLC map? It's not an exact match, because there are other factors that impact homeownership. It's still significant correlation, though.</p>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="4">
             <p>Now, let's look at social vulnerability, which &quot;measures the likelihood a community faces negative consequences from environmental, economic or health-related disasters, with a higher score reflecting greater risk.&quot;</p>
@@ -204,7 +196,7 @@
             <img src="images/socialvulnerability-scale.png" alt="social vulnerability scale" />
             <p class="text-xs">Screenshots sourced from: Black Wealth Data Center. Data sourced from: Center for Disease Control (2022).</p>
             <p>This time, the yellow (C) and red (D) areas overlap with the darker areas.</p>
-            <p>Again, it might not just be redlining that caused this disparity. It may even be a different cause. However, we know these redlining and social vulnerability are linked, and by combining history knowledge with contemporary data, we're able to identify areas most in need of support.</p>
+            <p>Again, it might not just be redlining that caused this disparity. It may even be a different cause. However, we know that redlining and social vulnerability are linked, and by combining history knowledge with contemporary data, we're able to identify areas most in need of support.</p>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-left left-[35vw]" data-step="5">
             <p>Here's another visualization of social vulnerability.</p>
