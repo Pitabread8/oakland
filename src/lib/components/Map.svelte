@@ -254,7 +254,6 @@
     .step {
         margin: 0 auto 2rem auto;
         background-color: #444;
-        color: #fff;
     }
 
     .step:last-child {

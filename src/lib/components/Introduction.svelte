@@ -70,21 +70,26 @@
 
 <section id="scrolly-one" class="my-8 relative grid">
     <article class="w-full">
-        <div class="step relative z-1 w-xs left-[36vw]" data-step="1">
-            <p>STEP 1</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl left-[34vw]" data-step="1">
+            <p>We learned about the Civil War, which took place 165 years ago and was fought between the North and the South.</p>
         </div>
-        <div class="step relative z-1 w-xs right-[36vw]" data-step="2">
-            <p>STEP 2</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl right-[34vw]" data-step="2">
+            <p>There was the Great Migration a century ago, during which a large number of Black people moved from the South to the North and Midwest.</p>
         </div>
-        <div class="step relative z-1 w-xs left-[36vw]" data-step="3">
-            <p>STEP 3</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl left-[34vw]" data-step="3">
+            <p>We also know about Jim Crow laws, which constituted systemic racial discrimination.</p>
         </div>
-        <div class="step relative z-1 w-xs right-[36vw]" data-step="4">
-            <p>STEP 4</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl right-[34vw]" data-step="4">
+            <p>There is also a lot of material about legislation and historical figures in the South, especially relating to race.</p>
+        </div>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl left-[36vw]" data-step="5">
+            <p>This is by no means a complete timeline, and it's important history. But there's also local history that we should know.</p>
+            <p class="text-sm">Textbook: TEKS United States History Since 1877 (2016). <span class="text-xs">Not the textbook used in my history class.</span></p>
+            <p class="text-sm">Photo: Oakland Public Library.</p>
         </div>
     </article>
 
-    <figure class="flex items-center justify-center">
+    <figure class="flex justify-center">
         {#key pageIndex}
             <img src={`images/history-${pageIndex + 1}.jpeg` || "/images/history-1.jpeg"} alt="textbook page" transition:fade={{ duration: 1000 }} class="absolute max-w-full max-h-full object-contain" />
         {/key}
@@ -118,8 +123,6 @@
 
     .step {
         margin: 0 auto 2rem auto;
-        background-color: #3b3b3b;
-        color: #fff;
     }
 
     .step:last-child {
@@ -127,8 +130,6 @@
     }
 
     .step p {
-        text-align: center;
         padding: 1rem;
-        font-size: 1.5rem;
     }
 </style>
