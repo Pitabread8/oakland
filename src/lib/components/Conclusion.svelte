@@ -1,4 +1,4 @@
-<div class="w-screen h-screen flex flex-col items-center justify-center p-4 gap-2 mt-32">
+<div class="w-screen h-screen flex flex-col items-center justify-center p-4 gap-3">
     <h2 class="text-4xl font-extrabold text-red-600">What next?</h2>
     <p class="mb-3">Fixing racial inequity can seem like a daunting task. But we can tackle it by starting small.</p>
     <div class="flex flex-col items-center justify-center gap-6">

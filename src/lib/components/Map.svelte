@@ -26,7 +26,7 @@
         data = await res.json();
 
         drawOverlay();
-        map.on("zoomend moveend", drawOverlay);
+        map.on("moveend", drawOverlay);
 
         const main = d3.select("main");
         const scrolly = main.select("#scrolly-two");
@@ -39,16 +39,7 @@
 
         // generic window resize listener event
         function handleResize() {
-            // 1. update height of step elements
-            const stepH = Math.floor(window.innerHeight * 0.75);
-            step.style("height", stepH + "px");
-
-            const figureHeight = window.innerHeight / 2;
-            const figureMarginTop = (window.innerHeight - figureHeight) / 2;
-
-            figure.style("height", figureHeight + "px").style("top", figureMarginTop + "px");
-
-            // 3. tell scrollama to update new element dimensions
+            // tell scrollama to update new element dimensions
             scroller.resize();
         }
 
@@ -61,8 +52,51 @@
                 return i === response.index;
             });
 
+            const svg = d3.select("#overlay");
+
             // update graphic based on step
-            // figure.select("p").text(response.index + 1);
+            if (response.index === 2) {
+                svg.selectAll("*").remove();
+                map.flyTo([37.83, -122.21], 12.8, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            } else if (response.index === 3) {
+                svg.selectAll("*").remove();
+                map.flyTo([37.78, -122.24], 13, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            } else if (response.index === 4) {
+                svg.selectAll("*").remove();
+                map.flyTo([37.81, -122.23], 11.7, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            } else if (response.index === 5) {
+                svg.selectAll("*").remove();
+                map.flyTo([37.81, -122.23], 12, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            } else if (response.index === 6) {
+                svg.selectAll("*").remove();
+                map.flyTo([37.79, -122.23], 13, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            } else {
+                map.flyTo([37.81, -122.23], 12, {
+                    animate: false,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            }
         }
 
         function init() {
@@ -131,23 +165,80 @@
 </script>
 
 <section id="scrolly-two" class="my-8 relative grid">
-    <article class="w-full">
-        <div class="step relative z-1 w-xs left-[35vw]" data-step="1">
-            <p>STEP 1</p>
+    <article class="w-full relative px-2 space-y-32">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="1">
+            <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
+            <p>They split Oakland into several neighborhoods and gave each of them a mortgage risk grade based on its neighborhoods and racial demographics. Areas with more people of color, especially Black people, resulted in a lower rating, which meant that residents would be denied loans and investments, decreasing their economic opportunities and access to homeownership, business equity, and other forms of household wealth.</p>
+            <img src="images/holc-oakland.jpg" alt="holc map" />
         </div>
-        <div class="step relative z-1 w-xs right-[35vw]" data-step="2">
-            <p>STEP 2</p>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 right-[35vw]" data-step="2">
+            <div class="space-y-4 p-6">
+                <div>
+                    <h3 class="text-lg font-bold text-[#76a865]">A (&quot;Best&quot;)</h3>
+                    <p class="text-sm mt-1">These were typically affluent, white neighborhoods with new or well-maintained housing.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#7cb5bd]">B (&quot;Still Desirable&quot;)</h3>
+                    <p class="text-sm mt-1">These were generally considered stable, although potentially with some signs of decline, and were often inhabited by middle-class residents.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#ffff00]">C (&quot;Definitely Declining&quot;)</h3>
+                    <p class="text-sm mt-1">These neighborhoods were characterized by older housing stock, and were often associated with a greater proportion of minority residents.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#d9838d]">D (&quot;Hazardous&quot;)</h3>
+                    <p class="text-sm mt-1">These were deemed high-risk areas for investment due to factors like older housing, proximity to industrial areas, and a greater percentage of minority residents.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-[#000000]">&quot;Industrial and Commercial&quot;</h3>
+                    <p class="text-sm mt-1">These were deemed high-risk areas for investment due to factors like older housing, proximity to industrial areas, and a greater percentage of minority residents.</p>
+                </div>
+            </div>
         </div>
-        <div class="step relative z-1 w-xs left-[35vw]" data-step="3">
-            <p>STEP 3</p>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="3">
+            <p>The 1937 map is overlaid over a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find the 2020 census tract it falls into now.</p>
+            <p>Below is a map of Oakland showing Black homeownership rates. Specifically: &quot;Percent of households living in owner-occupied housing. A housing unit is owner occupied if the owner or co-owner lives in the unit, even if it is mortgaged or not fully paid for.&quot;</p>
+            <img src="images/homeownership-map.png" alt="homeownership map" />
+            <img src="images/homeownership-scale.png" alt="homeownership scale" />
+            <p class="text-xs">Screenshots sourced from: Black Wealth Data Center. Data sourced from: American Community Survey (2023).</p>
+            <p>Notice how the darker areas of the map above tend to overlap with the green (A) and blue (B) parts of the HOLC map? It's not an exact match, because there are plenty of other factors that impact homownership. There's still significant correlation, though.</p>
         </div>
-        <div class="step relative z-1 w-xs right-[35vw]" data-step="4">
-            <p>STEP 4</p>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="4">
+            <p>Now, let's look at social vulnerability, which &quot;measures the likelihood a community faces negative consequences from environmental, economic or health-related disasters, with a higher score reflecting greater risk.&quot;</p>
+            <img src="images/socialvulnerability-map.png" alt="social vulnerability map" />
+            <img src="images/socialvulnerability-scale.png" alt="social vulnerability scale" />
+            <p class="text-xs">Screenshots sourced from: Black Wealth Data Center. Data sourced from: Center for Disease Control (2022).</p>
+            <p>This time, the yellow (C) and red (D) areas overlap with the darker areas.</p>
+            <p>Again, it might not just be redlining that caused this disparity. It may even be a different cause. However, we know these redlining and social vulnerability are linked, and by combining history knowledge with contemporary data, we're able to identify areas most in need of support.</p>
+        </div>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-left left-[35vw]" data-step="5">
+            <p>Here's another visualization of social vulnerability.</p>
+            <img src="images/ncrc-socialvulnerability.jpg" alt="social vulnerability map" />
+            <p class="text-xs">National Community Reinvestment Coalition (2020).</p>
+            <p>And one showing life expectancy in relation to redlined areas.</p>
+            <img src="images/ncrc-lifeexpectancy.jpg" alt="life expectancy scale" />
+            <p class="text-xs">National Community Reinvestment Coalition (2020).</p>
+            <p>Both charts show strong correlations.</p>
+        </div>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="6">
+            <p>Studies have also proven strong links between redlining and public health issues. Nardone et al. found that, &quot;Historically redlined census tracts have significantly higher rates of emergency department visits due to asthma.&quot;</p>
+            <img src="images/asthma-heatmap.jpg" alt="asthma heatmap" />
+            <img src="images/asthma-boxplot.jpg" alt="asthma boxplot" />
+            <p class="text-xs"><span class="font-bold">Associations between historical residential redlining and current age-adjusted rates of emergency department visits due to asthma across eight cities in California: an ecological study.</span> Nardone, Anthony et al. The Lancet Planetary Health, Volume 4, Issue 1, e24 - e31. (2020).</p>
+        </div>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="7">
+            <p>How do we know the relationship between redlining and asthma is not purely coincidental? We can't say anything for sure, especially just with the data presented here. But here's another visualization that can give us a clue. &quot;This metric measures how many days nearby sensors recorded air quality levels over 50, the threshold at which sensitive groups can begin to be affected by pollutants. Air quality index (AQI) is determined by concentration of PM2.5 air particles.&quot;</p>
+            <img src="images/airquality-map.png" alt="air quality map" />
+            <img src="images/airquality-scale.png" alt="air quality scale" />
+            <p class="text-xs">Screenshots sourced from: Black Wealth Data Center. Data sourced from: Environmental Protection Agency (2024), PurpleAir (2024).</p>
+            <p>The air quality tends to be lower in the areas where there are higher rates of emergency department visits due to asthma. We know that bad air quality causes asthma, so now we look to what's causing the bad air quality.</p>
+            <p>Look more closely at West Oakland. That's where the Industrial and Commercial areas were, as marked on the HOLC map. And because industrial activities release a lot of pollutants, the air quality tends to be poor.</p>
+            <p>Notice how all the areas around the Industrial and Commercial areas are marked as yellow (C) and red (D)? Banks would refuse or be reluctant to give out loans to these areas' residents, making it harder for them to move out and into cleaner areas.</p>
         </div>
     </article>
 
-    <figure class="flex items-center justify-center">
-        <div id="map" class="relative w-screen h-screen">
+    <figure class="sticky top-0 h-screen w-full overflow-hidden z-0 m-0">
+        <div id="map" class="relative w-full h-full">
             <svg id="overlay" class="absolute top-0 left-0 z-[1000]"></svg>
         </div>
     </figure>
@@ -164,22 +255,6 @@
         grid-row: 1;
     }
 
-    article {
-        position: relative;
-        padding: 0 1rem;
-    }
-
-    figure {
-        position: -webkit-sticky;
-        position: sticky;
-        width: 100%;
-        margin: 0;
-        -webkit-transform: translate3d(0, 0, 0);
-        -moz-transform: translate3d(0, 0, 0);
-        transform: translate3d(0, 0, 0);
-        z-index: 0;
-    }
-
     .step {
         margin: 0 auto 2rem auto;
         background-color: #3b3b3b;
@@ -193,11 +268,5 @@
     .step.is-active {
         background-color: goldenrod;
         color: #3b3b3b;
-    }
-
-    .step p {
-        text-align: center;
-        padding: 1rem;
-        font-size: 1.5rem;
     }
 </style>
