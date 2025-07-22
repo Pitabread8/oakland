@@ -5,7 +5,6 @@
     const d3 = getContext("d3");
     import Card from "./Card.svelte";
 
-    const pages = ["https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630", "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D", "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630", "https://plus.unsplash.com/premium_photo-1664474619075-644dd191935f?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"];
     let pageIndex = 0;
 
     onMount(() => {
@@ -24,7 +23,7 @@
             const stepH = Math.floor(window.innerHeight * 0.75);
             step.style("height", stepH + "px");
 
-            const figureHeight = window.innerHeight / 2;
+            const figureHeight = window.innerHeight / 1.25;
             const figureMarginTop = (window.innerHeight - figureHeight) / 2;
 
             figure.style("height", figureHeight + "px").style("top", figureMarginTop + "px");
@@ -71,23 +70,23 @@
 
 <section id="scrolly-one" class="my-8 relative grid">
     <article class="w-full">
-        <div class="step relative z-1 w-xs left-[35vw]" data-step="1">
+        <div class="step relative z-1 w-xs left-[36vw]" data-step="1">
             <p>STEP 1</p>
         </div>
-        <div class="step relative z-1 w-xs right-[35vw]" data-step="2">
+        <div class="step relative z-1 w-xs right-[36vw]" data-step="2">
             <p>STEP 2</p>
         </div>
-        <div class="step relative z-1 w-xs left-[35vw]" data-step="3">
+        <div class="step relative z-1 w-xs left-[36vw]" data-step="3">
             <p>STEP 3</p>
         </div>
-        <div class="step relative z-1 w-xs right-[35vw]" data-step="4">
+        <div class="step relative z-1 w-xs right-[36vw]" data-step="4">
             <p>STEP 4</p>
         </div>
     </article>
 
     <figure class="flex items-center justify-center">
         {#key pageIndex}
-            <img src={pages[pageIndex] || "/vite.svg"} alt="textbook page" transition:fade={{ duration: 1000 }} class="absolute max-w-full max-h-full object-contain" />
+            <img src={`images/history-${pageIndex + 1}.jpeg` || "/images/history-1.jpeg"} alt="textbook page" transition:fade={{ duration: 1000 }} class="absolute max-w-full max-h-full object-contain" />
         {/key}
     </figure>
 </section>
