@@ -10,7 +10,7 @@
 
     onMount(async () => {
         // create map centered on oakland
-        map = L.map("map").setView([37.81, -122.23], 12);
+        map = L.map("map", { zoomControl: false }).setView([37.81, -122.23], 12);
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "&copy; OpenStreetMap contributors",
         }).addTo(map);
@@ -162,23 +162,23 @@
             <div class="space-y-4 p-6">
                 <div>
                     <h3 class="text-lg font-bold text-[#76a865]">A (&quot;Best&quot;)</h3>
-                    <p class="text-sm mt-1">These were typically affluent, white neighborhoods with new or well-maintained housing.</p>
+                    <p class="text-sm mt-1">Typically affluent, white neighborhoods with new or well-maintained housing.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#7cb5bd]">B (&quot;Still Desirable&quot;)</h3>
-                    <p class="text-sm mt-1">These were generally considered stable, although potentially with some signs of decline, and were often inhabited by middle-class residents.</p>
+                    <p class="text-sm mt-1">Generally considered stable and were often inhabited by middle-class residents.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#ffff00]">C (&quot;Definitely Declining&quot;)</h3>
-                    <p class="text-sm mt-1">These neighborhoods were characterized by older housing stock, and were often associated with a greater proportion of minority residents.</p>
+                    <p class="text-sm mt-1">Characterized by older housing, and mostly inhabited by racial minorities.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#d9838d]">D (&quot;Hazardous&quot;)</h3>
-                    <p class="text-sm mt-1">These were deemed high-risk areas for investment due to factors like older housing, proximity to industrial areas, and a greater percentage of minority residents.</p>
+                    <p class="text-sm mt-1">Deemed high-risk areas for investment, also due to a majority of inhabitants being people of color.</p>
                 </div>
                 <div>
                     <h3 class="text-lg font-bold text-[#000000]">&quot;Industrial and Commercial&quot;</h3>
-                    <p class="text-sm mt-1">These were deemed high-risk areas for investment due to factors like older housing, proximity to industrial areas, and a greater percentage of minority residents.</p>
+                    <p class="text-sm mt-1">Not a grade, but was marked on the HOLC map in gray.</p>
                 </div>
             </div>
         </div>
