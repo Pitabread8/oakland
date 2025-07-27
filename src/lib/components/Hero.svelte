@@ -1,5 +1,3 @@
-<!-- bg image -->
-
 <script>
     let { title, subtitle } = $props();
 </script>
@@ -15,6 +13,8 @@
     .background {
         background-image: url("/images/title.jpg");
         background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     .content {
         border-radius: 2rem;
