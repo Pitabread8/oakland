@@ -10,7 +10,7 @@
 
     onMount(async () => {
         // create map centered on oakland
-        map = L.map("map", { zoomControl: false }).setView([37.81, -122.23], 12);
+        map = L.map("map", { zoomControl: false }).setView([37.81, -122.23], 10);
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "&copy; OpenStreetMap contributors",
         }).addTo(map);
@@ -47,7 +47,7 @@
                 svg.selectAll("*").remove();
             } else if (response.index === 1) {
                 svg.selectAll("*").remove();
-                map.flyTo([37.81, -122.23], 12, {
+                map.flyTo([37.81, -122.27], 12, {
                     animate: true,
                     duration: 0.8,
                     easeLinearity: 0.25,
@@ -75,7 +75,7 @@
                 });
             } else if (response.index === 5) {
                 svg.selectAll("*").remove();
-                map.flyTo([37.81, -122.23], 12, {
+                map.flyTo([37.81, -122.27], 12, {
                     animate: true,
                     duration: 0.8,
                     easeLinearity: 0.25,
@@ -198,10 +198,10 @@
     <article class="w-full relative px-2 space-y-32">
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="1">
             <p>This is Oakland.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
+            <p>Oakland sits just east of San Francisco, and is home for over 400,000 people.</p> 
+            <p>With a rich history dating almost two centuries, the city is known for its cultural vibrancy, art community, and political activism.</p> 
+            <!-- add photos -->
+            <p>Yet beneath its progressive reputation lies a legacy of inequality.</p>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="2">
             <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
@@ -254,7 +254,7 @@
             <img src="images/airquality-map.png" alt="air quality map" />
             <img src="images/airquality-scale.png" alt="air quality scale" />
             <p class="text-xs">Screenshots sourced from: Black Wealth Data Center. Data sourced from: Environmental Protection Agency (2024), PurpleAir (2024).</p>
-            <p>The air quality tends to be lower in the areas where there are higher rates of emergency department visits due to asthma. We know that bad air quality causes asthma, so now we look to what's causing the bad air quality.</p>
+            <p>The air quality tends to be lower in the areas where there are higher rates of emergency department visits due to asthma. We know that bad air quality causes asthma, so what's causing the bad air quality?</p>
             <p>Look more closely at West Oakland. That's where the Industrial and Commercial areas were, as marked on the HOLC map. And because industrial activities release a lot of pollutants, the air quality tends to be poor.</p>
             <p>Notice how all the areas around the Industrial and Commercial areas are marked as yellow (C) and red (D)? Banks would refuse or be reluctant to give out loans to these areas' residents, making it harder for them to move out and into cleaner areas.</p>
         </div>
