@@ -23,7 +23,7 @@
         const res = await fetch(`${base}data/2020-tract-crosswalk.geojson`);
         data = await res.json();
 
-        drawOverlay();
+        // drawOverlay();
         map.on("moveend", drawOverlay);
 
         // initialize the scrollama
@@ -40,9 +40,19 @@
             // response = { element, direction, index }
 
             const svg = d3.select("#overlay");
+            index = response.index;
 
             // update graphic based on step
-            if (response.index === 2) {
+            if (response.index === 0) {
+                svg.selectAll("*").remove();
+            } else if (response.index === 1) {
+                svg.selectAll("*").remove();
+                map.flyTo([37.81, -122.23], 12, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+            } else if (response.index === 2) {
                 svg.selectAll("*").remove();
                 map.flyTo([37.83, -122.21], 12.8, {
                     animate: true,
@@ -74,12 +84,6 @@
                 svg.selectAll("*").remove();
                 map.flyTo([37.79, -122.23], 13, {
                     animate: true,
-                    duration: 0.8,
-                    easeLinearity: 0.25,
-                });
-            } else {
-                map.flyTo([37.81, -122.23], 12, {
-                    animate: false,
                     duration: 0.8,
                     easeLinearity: 0.25,
                 });
@@ -138,7 +142,18 @@
             .style("pointer-events", "all")
             .style("cursor", "pointer")
             .on("mouseover", function (event, d) {
-                tooltip.style("display", "block").text(`Census Tract: #${d.properties.GEOID.slice(-6)}`);
+                if (index === 1) {
+                    d3.selectAll("path.area")
+                        .filter((d) => d3.select(this).attr("fill") === d.properties.fill)
+                        .attr("stroke-width", 1.5)
+                        .attr("fill-opacity", 0.6);
+                    d3.selectAll("path.area")
+                        .filter((d) => d3.select(this).attr("fill") != d.properties.fill)
+                        .attr("fill-opacity", 0.2);
+                    activeGrade = d3.select(this).attr("fill");
+                } else {
+                    tooltip.style("display", "block").text(`Census Tract: #${d.properties.GEOID.slice(-6)}`);
+                }
                 d3.select(this).attr("fill-opacity", 0.8);
             })
             .on("mousemove", function (event) {
@@ -146,41 +161,62 @@
             })
             .on("mouseout", function () {
                 tooltip.style("display", "none");
-                d3.select(this).attr("fill-opacity", 0.5);
+                d3.selectAll("path.area").attr("stroke-width", 1);
+                d3.selectAll("path.area").attr("fill-opacity", 0.5);
+                activeGrade = null;
             });
     }
+
+    const grades = {
+        "#76a865": {
+            title: 'A ("Best")',
+            description: "Typically affluent, white neighborhoods with new or well-maintained housing.",
+        },
+        "#7cb5bd": {
+            title: 'B ("Still Desirable")',
+            description: "Generally considered stable and were often inhabited by middle-class residents.",
+        },
+        "#ffff00": {
+            title: 'C ("Definitely Declining")',
+            description: "Characterized by older housing, and mostly inhabited by racial minorities.",
+        },
+        "#d9838d": {
+            title: 'D ("Hazardous")',
+            description: "Deemed high-risk areas for investment, residents were predominantly people of color.",
+        },
+        "#000000": {
+            title: '"Industrial and Commercial"',
+            description: "Not a grade, but was marked on the HOLC map in gray.",
+        },
+    };
+
+    let activeGrade = null;
+    let index = 0;
 </script>
 
 <section id="scrolly-two" class="my-8 relative grid">
     <article class="w-full relative px-2 space-y-32">
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="1">
-            <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
-            <p>They split Oakland into several neighborhoods and gave each of them a mortgage risk grade based on its neighborhoods and racial demographics. Areas with more people of color, especially Black people, resulted in a lower rating, which meant that residents would be denied loans and investments, decreasing their economic opportunities and access to homeownership, business equity, and other forms of household wealth.</p>
-            <img src="images/holc-oakland.jpg" alt="holc map" />
+            <p>This is Oakland.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean posuere lorem aliquet risus dignissim, ac vestibulum diam rhoncus. Proin in nisl vel turpis vehicula ullamcorper sit amet non mi.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 right-[35vw]" data-step="2">
-            <div class="space-y-4 p-6">
-                <div>
-                    <h3 class="text-lg font-bold text-[#76a865]">A (&quot;Best&quot;)</h3>
-                    <p class="text-sm mt-1">Typically affluent, white neighborhoods with new or well-maintained housing.</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-[#7cb5bd]">B (&quot;Still Desirable&quot;)</h3>
-                    <p class="text-sm mt-1">Generally considered stable and were often inhabited by middle-class residents.</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-[#ffff00]">C (&quot;Definitely Declining&quot;)</h3>
-                    <p class="text-sm mt-1">Characterized by older housing, and mostly inhabited by racial minorities.</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-[#d9838d]">D (&quot;Hazardous&quot;)</h3>
-                    <p class="text-sm mt-1">Deemed high-risk areas for investment, also due to a majority of inhabitants being people of color.</p>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-[#000000]">&quot;Industrial and Commercial&quot;</h3>
-                    <p class="text-sm mt-1">Not a grade, but was marked on the HOLC map in gray.</p>
-                </div>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="2">
+            <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
+            <p>HOLC split Oakland into several neighborhoods and gave each of them a mortgage risk grade based on its neighborhoods and racial demographics.</p>
+            <img src="images/holc-oakland.jpg" alt="holc map" />
+            <div class="border-2 border-red-400 p-2">
+                {#if grades[activeGrade]}
+                    <h3 class="text-lg font-bold" style="color: {activeGrade}">{grades[activeGrade].title}</h3>
+                    <p>{grades[activeGrade].description}</p>
+                {:else}
+                    <h3 class="text-lg font-bold">Risk Grades</h3>
+                    <p>Hover over each HOLC-designated area in the large map to learn more about the grades.</p>
+                {/if}
             </div>
+            <p>Areas with more people of color, especially Black people, resulted in a lower rating, which meant that residents would be denied loans and investments, decreasing their economic opportunities and access to homeownership, business equity, and other forms of household wealth.</p>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="3">
             <p>The 1937 map is overlaid on a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find the 2020 census tract it falls into now.</p>
