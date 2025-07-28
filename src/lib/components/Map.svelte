@@ -41,49 +41,14 @@
             // response = { element, direction, index }
 
             const svg = d3.select("#overlay");
+            svg.selectAll("*").remove();
             index = response.index;
 
-            // update graphic based on step
-            if (response.index === 0) {
-                svg.selectAll("*").remove();
-            } else if (response.index === 1) {
-                svg.selectAll("*").remove();
-                map.flyTo([37.81, -122.27], 12, {
-                    animate: true,
-                    duration: 0.8,
-                    easeLinearity: 0.25,
-                });
-            } else if (response.index === 2) {
-                svg.selectAll("*").remove();
-                map.flyTo([37.83, -122.21], 12.8, {
-                    animate: true,
-                    duration: 0.8,
-                    easeLinearity: 0.25,
-                });
-            } else if (response.index === 3) {
-                svg.selectAll("*").remove();
-                map.flyTo([37.78, -122.24], 13, {
-                    animate: true,
-                    duration: 0.8,
-                    easeLinearity: 0.25,
-                });
-            } else if (response.index === 4) {
-                svg.selectAll("*").remove();
-                map.flyTo([37.81, -122.23], 11.7, {
-                    animate: true,
-                    duration: 0.8,
-                    easeLinearity: 0.25,
-                });
-            } else if (response.index === 5) {
-                svg.selectAll("*").remove();
-                map.flyTo([37.81, -122.27], 12, {
-                    animate: true,
-                    duration: 0.8,
-                    easeLinearity: 0.25,
-                });
-            } else if (response.index === 6) {
-                svg.selectAll("*").remove();
-                map.flyTo([37.79, -122.23], 13, {
+            const steps = [null, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
+
+            const step = steps[index];
+            if (step) {
+                map.flyTo(step.coords, step.zoom, {
                     animate: true,
                     duration: 0.8,
                     easeLinearity: 0.25,
@@ -200,14 +165,27 @@
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="1">
             <p>This is Oakland.</p>
             <p>Oakland sits just east of San Francisco, and is home for over 400,000 people.</p>
+            <div class="flex flex-row gap-2 items-baseline">
+                <div>
+                    <img src="images/graffiti.jpg" alt="graffiti wall" />
+                    <p class="text-center mt-4 text-xs">Getty Images/UIG.</p>
+                </div>
+                <div>
+                    <img src="images/bay-bridge.jpg" alt="bay bridge" />
+                    <p class="text-center mt-4 text-xs">Tyler Casey/Unsplash.</p>
+                </div>
+            </div>
             <p>With a rich history dating almost two centuries, the city is known for its cultural vibrancy, art community, and political activism.</p>
-            <!-- add photos -->
+            <img src="images/black-panthers.jpg" alt="black panther party" />
+            <p class="text-center text-xs">David Fenton/Getty Images.</p>
+            <img src="images/mural.jpg" alt="mural" />
+            <p class="text-center text-xs">&quot;Women of the Black Panther Party&quot; by Rachel Wolfe-Goldsmith (2021).</p>
             <p>Yet beneath its progressive reputation lies a legacy of inequality.</p>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="2">
             <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
             <p>HOLC split Oakland into several neighborhoods and gave each of them a mortgage risk grade based on its neighborhoods and racial demographics.</p>
-            <ImageEnlarger src="images/holc-oakland.jpg" alt="holc map" caption={"CAPTION TBD."} />
+            <ImageEnlarger src="images/holc-oakland.jpg" alt="holc map" caption={'<span class="font-bold">Thomas Bros.; Home Owners\' Loan Corporation (1937).</span> Note: click on images to enlarge them.'} />
             {#if grades[activeGrade]}
                 <div class="border-2 p-2" style="border-color: {activeGrade}">
                     <h3 class="text-lg font-bold" style="color: {activeGrade}">{grades[activeGrade].title}</h3>
