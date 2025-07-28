@@ -2,6 +2,7 @@
     import { setContext } from "svelte";
     import scrollama from "scrollama";
     import * as d3 from "d3";
+    import AOS from "aos";
     import Hero from "./lib/components/Hero.svelte";
     import Introduction from "./lib/components/Introduction.svelte";
     import Card from "./lib/components/Card.svelte";
@@ -10,6 +11,7 @@
 
     setContext("scrollama", scrollama);
     setContext("d3", d3);
+    setContext("aos", AOS);
 </script>
 
 <main>
