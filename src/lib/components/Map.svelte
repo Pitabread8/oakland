@@ -8,10 +8,15 @@
 
     let map;
     let data;
+    let descData;
+    let activeGrade = null;
+    let index = 0;
+    let activeAreaData = null;
+    let quote = null;
 
     onMount(async () => {
         // create map centered on oakland
-        map = L.map("map", { zoomControl: false }).setView([37.81, -122.23], 10);
+        map = L.map("map", { zoomControl: false }).setView([37.81, -122.4], 10);
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "&copy; OpenStreetMap contributors",
         }).addTo(map);
@@ -23,6 +28,10 @@
         const base = import.meta.env.BASE_URL || "/";
         const res = await fetch(`${base}data/2020-tract-crosswalk.geojson`);
         data = await res.json();
+
+        // fetch area descriptions data
+        const descRes = await fetch(`${base}data/area-descriptions.json`);
+        descData = await descRes.json();
 
         // drawOverlay();
         map.on("moveend", drawOverlay);
@@ -44,7 +53,7 @@
             svg.selectAll("*").remove();
             index = response.index;
 
-            const steps = [null, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
+            const steps = [null, { coords: [37.81, -122.17], zoom: 12 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
 
             const step = steps[index];
             if (step) {
@@ -108,6 +117,7 @@
             .style("pointer-events", "all")
             .style("cursor", "pointer")
             .on("mouseover", function (event, d) {
+                activeAreaData = descData[d.properties.area_id];
                 if (index === 1) {
                     d3.selectAll("path.area")
                         .filter((d) => d3.select(this).attr("fill") === d.properties.fill)
@@ -118,9 +128,10 @@
                         .attr("fill-opacity", 0.2);
                     activeGrade = d3.select(this).attr("fill");
                 } else {
-                    tooltip.style("display", "block").text(`Census Tract: #${d.properties.GEOID.slice(-6)}`);
+                    tooltip.style("display", "block").text(`Census Tract: #${d.properties.GEOID.slice(-6)} | Grade: ${d.properties.grade || "N/A"}`);
                 }
                 d3.select(this).attr("fill-opacity", 0.8);
+                quote = activeAreaData ? pickQuote(activeAreaData) : "";
             })
             .on("mousemove", function (event) {
                 tooltip.style("left", event.pageX + 10 + "px").style("top", event.pageY - 28 + "px");
@@ -130,6 +141,8 @@
                 d3.selectAll("path.area").attr("stroke-width", 1);
                 d3.selectAll("path.area").attr("fill-opacity", 0.5);
                 activeGrade = null;
+                activeAreaData = null;
+                quote = null;
             });
     }
 
@@ -156,13 +169,22 @@
         },
     };
 
-    let activeGrade = null;
-    let index = 0;
+    function pickQuote(data) {
+        const text = data["all_fields"] || "";
+        const quotes = [/infiltration[^.;]*/i, /racial[^.;]*/i, /undesirables[^.;]*/i, /Negro[^.;]*/i, /Oriental[^.;]*/i, /Asiatic[^.;]*/i, /Mexican[^.;]*/i, /laborer[^.;]*/i, /foreign[^.;]*/i];
+
+        for (const regex of quotes) {
+            const match = text.match(regex);
+            if (match) return match[0].trim();
+        }
+
+        return text.split(/[.;]/)[0].trim();
+    }
 </script>
 
 <section id="scrolly-two" class="my-8 relative grid">
     <article class="w-full relative px-2 space-y-32">
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="1">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="1">
             <p>This is Oakland.</p>
             <p>Oakland sits just east of San Francisco, and is home for over 400,000 people.</p>
             <div class="flex flex-row gap-2 items-baseline">
@@ -182,7 +204,7 @@
             <p class="text-center text-xs">&quot;Women of the Black Panther Party&quot; by Rachel Wolfe-Goldsmith (2021).</p>
             <p>Yet beneath its progressive reputation lies a legacy of inequality.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="2">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="2">
             <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
             <p>HOLC split Oakland into several neighborhoods and gave each of them a mortgage risk grade based on its neighborhoods and racial demographics.</p>
             <ImageEnlarger src="images/holc-oakland.jpg" alt="holc map" caption={'<span class="font-bold">Thomas Bros.; Home Owners\' Loan Corporation (1937).</span> Note: click on images to enlarge them.'} />
@@ -199,8 +221,26 @@
             {/if}
             <p>Areas with more people of color, especially Black people, resulted in a lower rating, which meant that residents would be denied loans and investments, decreasing their economic opportunities and access to homeownership, business equity, and other forms of household wealth.</p>
         </div>
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="3">
+            <p>The 1937 map is overlaid on a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find its grade and the 2020 census tract it falls into now.</p>
+            <!-- finish styling + content for this pop-up -->
+            {#if activeAreaData}
+                <div class="border-2 p-2" style="border-color: {activeGrade}">
+                    <p>Area: {activeAreaData.name_of_city} : {activeAreaData.area_number} ({activeAreaData.grade} - {activeAreaData.security_grade})</p>
+                    <p>Income: {activeAreaData.estimated_annual_family_income}</p>
+                    <p>Residents: {activeAreaData.occupation_or_type}</p>
+                    <p>Foreign-born: {activeAreaData.foreign_born_percent}</p>
+                    <p>Black residents noted: {activeAreaData.negro_yes_or_no}</p>
+                    <p>Quote: "{quote}"</p>
+                </div>
+            {:else}
+                <div class="border-2 p-2">
+                    <h3 class="text-lg font-bold">Risk Grades {activeAreaData} hii</h3>
+                    <p>Hover over each HOLC-designated area in the large map to learn more about the grades.</p>
+                </div>
+            {/if}
+        </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="3">
-            <p>The 1937 map is overlaid on a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find the 2020 census tract it falls into now.</p>
             <p>Below is a map of Oakland showing Black homeownership rates. Specifically: &quot;Percent of households living in owner-occupied housing. A housing unit is owner occupied if the owner or co-owner lives in the unit, even if it is mortgaged or not fully paid for.&quot;</p>
             <ImageEnlarger src="images/homeownership-map.png" alt="homeownership map" caption={'Screenshot sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">American Community Survey (2023).'} captionShow={false} />
             <ImageEnlarger src="images/homeownership-scale.png" alt="homeownership scale" caption={'Screenshots sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">American Community Survey (2023).</span>'} />
