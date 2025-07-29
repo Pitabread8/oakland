@@ -16,7 +16,7 @@
 
     onMount(async () => {
         // create map centered on oakland
-        map = L.map("map", { zoomControl: false }).setView([37.81, -122.4], 10);
+        map = L.map("map", { zoomControl: false }).setView([37.81, -122.4], 11);
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "&copy; OpenStreetMap contributors",
         }).addTo(map);
@@ -53,7 +53,7 @@
             svg.selectAll("*").remove();
             index = response.index;
 
-            const steps = [null, { coords: [37.81, -122.17], zoom: 12 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
+            const steps = [null, { coords: [37.81, -122.17], zoom: 12 }, { coords: [37.81, -122.27], zoom: 11.9 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
 
             const step = steps[index];
             if (step) {
@@ -61,6 +61,15 @@
                     animate: true,
                     duration: 0.8,
                     easeLinearity: 0.25,
+                });
+            } else {
+                map.flyTo([37.81, -122.4], 11, {
+                    animate: true,
+                    duration: 0.8,
+                    easeLinearity: 0.25,
+                });
+                map.once("moveend", () => {
+                    svg.selectAll("*").remove();
                 });
             }
         }
@@ -126,10 +135,10 @@
                     d3.selectAll("path.area")
                         .filter((d) => d3.select(this).attr("fill") != d.properties.fill)
                         .attr("fill-opacity", 0.2);
-                    activeGrade = d3.select(this).attr("fill");
                 } else {
-                    tooltip.style("display", "block").text(`Census Tract: #${d.properties.GEOID.slice(-6)} | Grade: ${d.properties.grade || "N/A"}`);
+                    tooltip.style("display", "block").text(`Area: ${d.properties.label} | Grade: ${d.properties.grade || "N/A"} | Tract: #${d.properties.GEOID.slice(-6)}`);
                 }
+                activeGrade = d3.select(this).attr("fill");
                 d3.select(this).attr("fill-opacity", 0.8);
                 quote = activeAreaData ? pickQuote(activeAreaData) : "";
             })
@@ -170,15 +179,16 @@
     };
 
     function pickQuote(data) {
-        const text = data["all_fields"] || "";
-        const quotes = [/infiltration[^.;]*/i, /racial[^.;]*/i, /undesirables[^.;]*/i, /Negro[^.;]*/i, /Oriental[^.;]*/i, /Asiatic[^.;]*/i, /Mexican[^.;]*/i, /laborer[^.;]*/i, /foreign[^.;]*/i];
+        const text = data["clarifying_remarks"] || "";
+        // const expressions = [/infiltration[^.;]*/i, /racial[^.;]*/i, /undesirables[^.;]*/i, /Negro[^.;]*/i, /Oriental[^.;]*/i, /Asiatic[^.;]*/i, /Mexican[^.;]*/i, /laborer[^.;]*/i, /foreign[^.;]*/i];
+        const expressions = [/(?<=^|(?<=\. ))[^.]*\binfiltration\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\bracial\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\bundesirables?\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\bnegro(es)?\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\borientals?\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\basiatics?\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\bmexicans?\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\blaborer(s)?\b[^.]*\./i, /(?<=^|(?<=\. ))[^.]*\bforeign\b[^.]*\./i];
 
-        for (const regex of quotes) {
+        for (const regex of expressions) {
             const match = text.match(regex);
             if (match) return match[0].trim();
         }
 
-        return text.split(/[.;]/)[0].trim();
+        return;
     }
 </script>
 
@@ -223,22 +233,29 @@
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="3">
             <p>The 1937 map is overlaid on a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find its grade and the 2020 census tract it falls into now.</p>
-            <!-- finish styling + content for this pop-up -->
-            {#if activeAreaData}
-                <div class="border-2 p-2" style="border-color: {activeGrade}">
-                    <p>Area: {activeAreaData.name_of_city} : {activeAreaData.area_number} ({activeAreaData.grade} - {activeAreaData.security_grade})</p>
-                    <p>Income: {activeAreaData.estimated_annual_family_income}</p>
-                    <p>Residents: {activeAreaData.occupation_or_type}</p>
-                    <p>Foreign-born: {activeAreaData.foreign_born_percent}</p>
-                    <p>Black residents noted: {activeAreaData.negro_yes_or_no}</p>
-                    <p>Quote: "{quote}"</p>
-                </div>
-            {:else}
-                <div class="border-2 p-2">
-                    <h3 class="text-lg font-bold">Risk Grades {activeAreaData} hii</h3>
-                    <p>Hover over each HOLC-designated area in the large map to learn more about the grades.</p>
-                </div>
-            {/if}
+            <p>A short report was filed for each area, with details about the environment, residents, and other observations. These documents provide insight into the agency's decision-making process, revealing explicit racial prejudice.</p>
+            <p class="text-xs">Please note that some of the language presented here may reflect outdated and potentially offensive terminology.</p>
+            <div class="h-[65vh] text-left text-sm">
+                {#if activeAreaData}
+                    <h3 class="text-lg font-bold" style="color: {activeGrade}">Area Description - {activeAreaData.label}</h3>
+                    <!-- <p>Estimated Annual Family Income: {activeAreaData.estimated_annual_family_income.replace(/,000/g, "k").replace(/- /g, "- $").replace(/\s/g, "")}</p> -->
+                    <p><span class="font-bold mt-2">Infiltration of:</span> {activeAreaData.infiltration_of}</p>
+                    <p><span class="font-bold mt-2">Foreign-Born Residents:</span> {activeAreaData.foreign_born_nationality}, {activeAreaData.foreign_born_percent.trim() || "0%"}</p>
+                    <p><span class="font-bold mt-2">Black Residents Noted:</span> {activeAreaData.negro_yes_or_no}, {activeAreaData.negro_percent.replace("-", "") || "0%"}</p>
+                    <p><span class="font-bold mt-2">Occupation:</span> {activeAreaData.occupation_or_type}</p>
+                    {#if quote}
+                        <p class="font-bold text-center mt-2">Selected Clarifying Remarks:</p>
+                        <p>&quot;{quote}&quot;</p>
+                    {/if}
+                    <p class="font-bold text-center mt-2">Favorable Influences:</p>
+                    <p>&quot;{activeAreaData.favorable_influences.trim() || "0%"}&quot;</p>
+                    <p class="font-bold text-center mt-2">Detrimental Influences:</p>
+                    <p>&quot;{activeAreaData.detrimental_influences.trim() || "0%"}&quot;</p>
+                {:else}
+                    <h3 class="text-lg font-bold">Area Description</h3>
+                    <p>Hover over each HOLC-designated area to read what was written in its report.</p>
+                {/if}
+            </div>
         </div>
         <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="3">
             <p>Below is a map of Oakland showing Black homeownership rates. Specifically: &quot;Percent of households living in owner-occupied housing. A housing unit is owner occupied if the owner or co-owner lives in the unit, even if it is mortgaged or not fully paid for.&quot;</p>
