@@ -1,5 +1,3 @@
-<!-- figure out z-index issue -->
-
 <script>
     export let src = "";
     export let alt = "";

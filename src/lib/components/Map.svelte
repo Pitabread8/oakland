@@ -39,9 +39,8 @@
         // initialize the scrollama
         const scroller = scrollama();
 
-        // generic window resize listener event
+        // tell scrollama to update new element dimensions
         function handleResize() {
-            // tell scrollama to update new element dimensions
             scroller.resize();
         }
 
@@ -238,7 +237,6 @@
             <div class="h-[65vh] text-left text-sm">
                 {#if activeAreaData}
                     <h3 class="text-lg font-bold" style="color: {activeGrade}">Area Description - {activeAreaData.label}</h3>
-                    <!-- <p>Estimated Annual Family Income: {activeAreaData.estimated_annual_family_income.replace(/,000/g, "k").replace(/- /g, "- $").replace(/\s/g, "")}</p> -->
                     <p><span class="font-bold mt-2">Infiltration of:</span> {activeAreaData.infiltration_of}</p>
                     <p><span class="font-bold mt-2">Foreign-Born Residents:</span> {activeAreaData.foreign_born_nationality}, {activeAreaData.foreign_born_percent.trim() || "0%"}</p>
                     <p><span class="font-bold mt-2">Black Residents Noted:</span> {activeAreaData.negro_yes_or_no}, {activeAreaData.negro_percent.replace("-", "") || "0%"}</p>

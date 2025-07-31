@@ -32,12 +32,11 @@
             scroller.resize();
         }
 
-        // scrollama event handlers
+        // scrollama event handler
         function handleStepEnter(response) {
             // response = { element, direction, index }
 
             // update graphic based on step
-            // figure.select("p").text(response.index + 1);
             pageIndex = response.index;
         }
 
