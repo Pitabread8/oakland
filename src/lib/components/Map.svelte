@@ -53,7 +53,7 @@
             svg.selectAll("*").remove();
             index = response.index;
 
-            const steps = [null, { coords: [37.81, -122.17], zoom: 12 }, { coords: [37.81, -122.27], zoom: 11.9 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
+            const steps = [null, { coords: [37.81, -122.2], zoom: 12 }, { coords: [37.81, -122.27], zoom: 11.9 }, { coords: [37.83, -122.21], zoom: 12.8 }, { coords: [37.78, -122.24], zoom: 13 }, { coords: [37.81, -122.23], zoom: 11.7 }, { coords: [37.81, -122.27], zoom: 12 }, { coords: [37.79, -122.23], zoom: 13 }];
 
             const step = steps[index];
             if (step) {
@@ -194,7 +194,7 @@
 
 <section id="scrolly-two" class="my-8 relative grid">
     <article class="w-full relative px-2 space-y-32">
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="1">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:right-[30vw] xl:right-[35vw]" data-step="1">
             <p>This is Oakland.</p>
             <p>Oakland sits just east of San Francisco, and is home for over 400,000 people.</p>
             <div class="flex flex-row gap-2 items-baseline">
@@ -214,7 +214,7 @@
             <p class="text-center text-xs">&quot;Women of the Black Panther Party&quot; by Rachel Wolfe-Goldsmith (2021).</p>
             <p>Yet beneath its progressive reputation lies a legacy of inequality.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="2">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:left-[30vw] xl:left-[35vw]" data-step="2">
             <p>The Home Owners' Loan Corporation (HOLC) was established in 1993 by President Franklin D. Roosevelt, under the New Deal. In 1937, they commissioned a report on the city of Oakland and the surrounding area.</p>
             <p>HOLC split Oakland into several neighborhoods and gave each of them a mortgage risk grade based on its neighborhoods and racial demographics.</p>
             <ImageEnlarger src="images/holc-oakland.jpg" alt="holc map" caption={'<span class="font-bold">Thomas Bros.; Home Owners\' Loan Corporation (1937).</span> Note: click on images to enlarge them.'} />
@@ -231,7 +231,7 @@
             {/if}
             <p>Areas with more people of color, especially Black people, resulted in a lower rating, which meant that residents would be denied loans and investments, decreasing their economic opportunities and access to homeownership, business equity, and other forms of household wealth.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="3">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:right-[30vw] xl:right-[35vw]" data-step="3">
             <p>The 1937 map is overlaid on a modern map of Oakland and the surrounding Alameda county. Hover over each HOLC-designated area to find its grade and the 2020 census tract it falls into now.</p>
             <p>A short report was filed for each area, with details about the environment, residents, and other observations. These documents provide insight into the agency's decision-making process, revealing explicit racial prejudice.</p>
             <p class="text-xs">Please note that some of the language presented here may reflect outdated and potentially offensive terminology.</p>
@@ -257,40 +257,40 @@
                 {/if}
             </div>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="3">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:left-[30vw] xl:left-[35vw]" data-step="3">
             <p>Below is a map of Oakland showing Black homeownership rates. Specifically: &quot;Percent of households living in owner-occupied housing. A housing unit is owner occupied if the owner or co-owner lives in the unit, even if it is mortgaged or not fully paid for.&quot;</p>
             <ImageEnlarger src="images/homeownership-map.png" alt="homeownership map" caption={'Screenshot sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">American Community Survey (2023).'} captionShow={false} />
             <ImageEnlarger src="images/homeownership-scale.png" alt="homeownership scale" caption={'Screenshots sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">American Community Survey (2023).</span>'} />
             <p>Notice how the darker areas of the map above tend to overlap with the green (A) and blue (B) parts of the HOLC map? It's not an exact match, because there are other factors that impact homeownership. It's still significant correlation, though.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="4">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:right-[30vw] xl:right-[35vw]" data-step="4">
             <p>Now, let's look at social vulnerability, which &quot;measures the likelihood a community faces negative consequences from environmental, economic or health-related disasters, with a higher score reflecting greater risk.&quot;</p>
             <ImageEnlarger src="images/socialvulnerability-map.png" alt="social vulnerability map" caption={'Screenshot sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">Center for Disease Control (2022).'} captionShow={false} />
             <ImageEnlarger src="images/socialvulnerability-scale.png" alt="social vulnerability scale" caption={'Screenshots sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">Center for Disease Control (2022).</span>'} />
             <p>This time, the yellow (C) and red (D) areas overlap with the darker areas.</p>
-            <p>Again, it might not just be redlining that caused this disparity. It may even be a different cause. However, we know that redlining and social vulnerability are linked, and by combining history knowledge with contemporary data, we're able to identify areas most in need of support.</p>
+            <p>Again, it might not just be redlining that caused this disparity. It may even be a different cause. However, we at least know that redlining and social vulnerability are linked, and by combining history knowledge with contemporary data, we're able to identify areas most in need of support.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-left left-[35vw]" data-step="5">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-left lg:left-[30vw] xl:left-[35vw]" data-step="5">
             <p>Here's another visualization of social vulnerability.</p>
             <ImageEnlarger src="images/ncrc-socialvulnerability.jpg" alt="social vulnerability map" caption={"National Community Reinvestment Coalition (2020).</span>"} />
             <p>And one showing life expectancy in relation to redlined areas.</p>
             <ImageEnlarger src="images/ncrc-lifeexpectancy.jpg" alt="life expectancy map" caption={"National Community Reinvestment Coalition (2020).</span>"} />
-            <p>Both charts show strong correlations.</p>
+            <p>Both charts show strong correlations with the HOLC map.</p>
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify right-[35vw]" data-step="6">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:right-[30vw] xl:right-[35vw]" data-step="6">
             <p>Studies have also proven strong links between redlining and public health issues. Nardone et al. found that, &quot;Historically redlined census tracts have significantly higher rates of emergency department visits due to asthma.&quot;</p>
             <ImageEnlarger src="images/asthma-heatmap.jpg" alt="asthma heatmap" caption={'<span class="font-bold">Associations between historical residential redlining and current age-adjusted rates of emergency department visits due to asthma across eight cities in California: an ecological study.</span> Nardone, Anthony et al. The Lancet Planetary Health, Volume 4, Issue 1, e24 - e31. (2020).'} captionShow={false} />
             <ImageEnlarger src="images/asthma-boxplot.jpg" alt="asthma boxplot" caption={'<span class="font-bold">Associations between historical residential redlining and current age-adjusted rates of emergency department visits due to asthma across eight cities in California: an ecological study.</span> Nardone, Anthony et al. The Lancet Planetary Health, Volume 4, Issue 1, e24 - e31. (2020).'} />
         </div>
-        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw]" data-step="7">
+        <div class="step relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:left-[30vw] xl:left-[35vw]" data-step="7">
             <p>How do we know the relationship between redlining and asthma is not purely coincidental? We can't say anything for sure, especially just with the data presented here. But here's another visualization that can give us a clue. &quot;This metric measures how many days nearby sensors recorded air quality levels over 50, the threshold at which sensitive groups can begin to be affected by pollutants. Air quality index (AQI) is determined by concentration of PM2.5 air particles.&quot;</p>
             <ImageEnlarger src="images/airquality-map.png" alt="air quality map" caption={'Screenshot sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">Environmental Protection Agency (2024), PurpleAir (2024).'} captionShow={false} />
             <ImageEnlarger src="images/airquality-scale.png" alt="air quality scale" caption={'Screenshots sourced from: <span class="font-bold">Black Wealth Data Center.</span> Data sourced from: <span class="font-bold">Environmental Protection Agency (2024), PurpleAir (2024).</span>'} />
-            <p>The air quality tends to be lower in the areas where there are higher rates of emergency department visits due to asthma. We know that bad air quality causes asthma, so what's causing the bad air quality?</p>
-            <p>Look more closely at West Oakland. That's where the Industrial and Commercial areas were, as marked on the HOLC map. And because industrial activities release a lot of pollutants, the air quality tends to be poor.</p>
+            <p>There is significant overlap between areas with higher rates of emergency department visits due to asthma and areas with lower air quality. We know that poor air quality causes asthma, so this makes sense. But what's causing the bad air?</p>
+            <p>Look more closely at West Oakland. That's where you can find the Industrial and Commercial areas, as marked on the HOLC map. And because industrial activities release a lot of pollutants, the air quality tends to be poor.</p>
             <p>Notice how all the areas around the Industrial and Commercial areas are marked as yellow (C) and red (D)? Banks would refuse or be reluctant to give out loans to these areas' residents, making it harder for them to move out and into cleaner areas.</p>
         </div>
-        <div class="relative z-1 w-96 p-4 flex flex-col gap-4 text-justify left-[35vw] h-screen" data-step="8"></div>
+        <div class="relative z-1 w-96 p-4 flex flex-col gap-4 text-justify lg:left-[30vw] xl:left-[35vw] h-screen" data-step="8"></div>
     </article>
 
     <figure class="sticky top-0 h-screen w-full overflow-hidden z-0 m-0">

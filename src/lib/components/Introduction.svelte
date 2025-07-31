@@ -70,22 +70,24 @@
 
 <section id="scrolly-one" class="my-8 relative grid">
     <article class="w-full">
-        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl left-[34vw]" data-step="1">
-            <p>We learned about the Civil War, which took place 165 years ago and was fought between the North and the South.</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs xl:text-xl left-[32vw] xl:left-[34vw]" data-step="1">
+            <p class="bg-[#444] xl:bg-transparent">We learned about the Civil War, which took place 165 years ago and was fought between the North and the South.</p>
         </div>
-        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl right-[34vw]" data-step="2">
-            <p>There was the Great Migration a century ago, during which a large number of Black people moved from the South to the North and Midwest.</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs xl:text-xl right-[32vw] xl:right-[34vw]" data-step="2">
+            <p class="bg-[#444] xl:bg-transparent">There was the Great Migration a century ago, during which a large number of Black people moved from the South to the North and Midwest.</p>
         </div>
-        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl left-[34vw]" data-step="3">
-            <p>We also know about Jim Crow laws, which constituted systemic racial discrimination.</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs xl:text-xl left-[32vw] xl:left-[34vw]" data-step="3">
+            <p class="bg-[#444] xl:bg-transparent">We also know about Jim Crow laws, which constituted systemic racial discrimination.</p>
         </div>
-        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl right-[34vw]" data-step="4">
-            <p>There is also a lot of material about legislation and historical figures in the South, especially relating to race.</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs xl:text-xl right-[32vw] xl:right-[34vw]" data-step="4">
+            <p class="bg-[#444] xl:bg-transparent">There is also a lot of material about legislation and historical figures in the South, especially relating to race.</p>
         </div>
-        <div class="step relative flex flex-col justify-center text-left z-1 w-xs text-xl left-[36vw]" data-step="5">
-            <p>This is by no means a complete timeline, and it's important history. But there's also local history that we should know.</p>
-            <p class="text-sm">Textbook: TEKS United States History Since 1877 (2016). <span class="text-xs">Not the textbook used in my history class.</span></p>
-            <p class="text-sm">Photo: Oakland Public Library.</p>
+        <div class="step relative flex flex-col justify-center text-left z-1 w-xs xl:text-xl left-[32vw] xl:left-[36vw]" data-step="5">
+            <div class="bg-[#444] xl:bg-transparent">
+                <p>This is by no means a complete timeline, and it's important history. But there's also local history that we should know.</p>
+                <p class="text-sm">Textbook: TEKS United States History Since 1877 (2016). <span class="text-xs">Not the textbook used in my history class.</span></p>
+                <p class="text-sm">Photo: Oakland Public Library.</p>
+            </div>
         </div>
     </article>
 
