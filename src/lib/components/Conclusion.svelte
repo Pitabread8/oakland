@@ -19,10 +19,10 @@
 <div class="w-screen h-screen flex flex-col items-center justify-center p-4 gap-3">
     <h2 data-aos="fade-up" data-aos-duration="800" class="text-4xl font-extrabold text-red-600">What next?</h2>
     <p data-aos="fade-up" data-aos-duration="800" class="mb-3">Fixing racial inequity can seem like a daunting task. But we can tackle it by starting small.</p>
-    <button data-aos="fade-up" data-aos-duration="800" class="relative flex w-64 rounded-full border-2 border-red-400 cursor-pointer p-1 bg-white overflow-hidden mt-4 mb-2" on:click={toggle}>
+    <button data-aos="fade-up" data-aos-duration="800" class="relative flex w-64 rounded-full border-2 border-red-400 cursor-pointer p-1 overflow-hidden mt-4 mb-2" on:click={toggle}>
         <div class="absolute inset-y-1 left-1 w-1/2 bg-red-600 rounded-full transition-transform duration-300 ease-in-out" class:translate-x-[calc(100%-0.5rem)]={selected === "local"}></div>
-        <div class={`relative z-10 flex-1 text-center py-2 rounded-full transition-colors duration-300 ${selected === "individual" ? "text-white" : "text-[#242424]"}`}>Individual</div>
-        <div class={`relative z-10 flex-1 text-center py-2 rounded-full transition-colors duration-300 ${selected === "local" ? "text-white" : "text-[#242424]"}`}>Government</div>
+        <div class={`relative z-10 flex-1 text-center py-2 rounded-full transition-colors duration-300 ${selected === "individual" ? "text-[#dcd3ca] dark:text-[#242424]" : "text-[#242424] dark:text-[#dcd3ca]"}`}>Individual</div>
+        <div class={`relative z-10 flex-1 text-center py-2 rounded-full transition-colors duration-300 ${selected === "local" ? "text-[#dcd3ca] dark:text-[#242424]" : "text-[#242424] dark:text-[#dcd3ca]"}`}>Government</div>
     </button>
     {#if selected === "individual"}
         <div data-aos="fade-in" data-aos-offset="100" data-aos-duration="800" data-aos-easing="ease-in-out" class="w-2/3 p-6 rounded-lg border-red-600 border-4 border-double text-justify">

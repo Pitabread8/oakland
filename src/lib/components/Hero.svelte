@@ -2,7 +2,7 @@
     let { title, subtitle } = $props();
 </script>
 
-<div class="w-screen h-screen flex flex-col gap-8 sm:gap-12 items-center justify-center border-box background">
+<div class="w-screen h-screen flex flex-col gap-8 sm:gap-12 items-center justify-center border-box background text-[#dcd3ca]">
     <div class="content border-red-600 border-8 bg-red-900 p-12 text-shadow-xs text-shadow-red-400">
         <h1 class="text-xl sm:text-3xl md:text-7xl">{title}</h1>
         <p class="text-sm sm:text-lg md:text-xl sm:mt-1 md:mt-4">{subtitle}</p>

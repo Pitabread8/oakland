@@ -27,7 +27,7 @@
 {#if modalShow}
     <div class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 p-4 w-screen h-screen">
         <div class="relative max-w-5xl max-h-full w-full">
-            <button class="absolute top-2 right-2 text-white text-3xl font-bold hover:text-gray-300" on:click={() => (modalShow = false)} aria-label="close">X</button>
+            <button class="absolute top-2 right-2 text-[#dcd3ca] text-3xl font-bold hover:text-[#3a5e7d]" on:click={() => (modalShow = false)} aria-label="close">X</button>
             <img {src} {alt} class="w-full h-auto max-h-[80vh] object-contain mx-auto rounded shadow-lg" />
             <p class="text-center mt-4 text-sm">{@html caption}</p>
         </div>
